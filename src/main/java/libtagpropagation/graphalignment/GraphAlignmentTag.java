@@ -31,6 +31,7 @@ public class GraphAlignmentTag {
 
     private boolean isOnTKG;// identify if the tag is on tkg
     private static final int ATTENUATION_THRESHOLD = 6;
+    private Long LastAccessTime;
 
     public GraphAlignmentTag(SeedNode seedNode, TechniqueKnowledgeGraph tkg, UUID tagUUID) {
         this.tagUuid = tagUUID;
@@ -55,16 +56,18 @@ public class GraphAlignmentTag {
 
         this.alignStatus.mergeAlignmentStatus(anotherAlignmentTag.alignStatus.getEdgeAlignmentStatusList(),anotherAlignmentTag.alignStatus.getNodeAlignmentStatusList());
 
-//        if (this.tkg.techniqueName.equals("T1105+T1059_Download+Execution")) {
-//            System.out.println("merge:" + this.lastAlignedNodeIndex + " " + anotherAlignmentTag.lastAlignedNodeIndex);
-//            this.alignStatus.print();
-//        }
+        if (this.tkg.techniqueName.equals("FiveDirections-PhishingE-mail-3.10")) {
+            System.out.println("merge:" + this.lastAlignedNodeIndex + " " + anotherAlignmentTag.lastAlignedNodeIndex);
+            this.alignStatus.print();
+        }
 
         if (this.alignStatus.shouldTriggerAlert()){
             if(!this.alignStatus.recurringAlert())
                 System.out.println(this.alignStatus.getAlignmentResult());
             return null;
         }
+
+        if (this.LastAccessTime < anotherAlignmentTag.getLastAccessTime()) this.LastAccessTime = anotherAlignmentTag.LastAccessTime;
 
         if(this.isOnTKG || anotherAlignmentTag.isOnTKG){
             if (this.cachedPath.size() == 0 || anotherAlignmentTag.cachedPath.size() == 0){
@@ -91,6 +94,7 @@ public class GraphAlignmentTag {
         this.tkg = orignalTag.tkg;
         this.searchGraph = orignalTag.searchGraph;
         this.alignStatus = orignalTag.alignStatus;
+        this.LastAccessTime = orignalTag.LastAccessTime;
         propagateTagCount ++;
     }
 
@@ -108,9 +112,9 @@ public class GraphAlignmentTag {
                 newTag.lastAlignedNode = this.lastAlignedNode;
                 newTag.isOnTKG = false;
             }
-
         }
         else {
+            newTag.LastAccessTime = event.timeStamp;
             newTag.lastAlignedNodeIndex = searchResult.f1.getIndex();
             newTag.lastAlignedNode = event.sinkNode;
             newTag.isOnTKG = true;
@@ -123,7 +127,7 @@ public class GraphAlignmentTag {
                     System.out.println(this.alignStatus.getAlignmentResult());
                 return null;
             }
-//            if (this.tkg.techniqueName.equals("THEIA–BrowserExtension-3.11")) {
+//            if (this.tkg.techniqueName.equals("THEIA–BrowserExtension-3.11") && this.alignStatus.alignmentScore > 0.5F) {
 //                if (graphAlignmentStatus != null) {
 //                    System.out.println("updateStatus:");
 //                    this.alignStatus.print();
@@ -141,4 +145,11 @@ public class GraphAlignmentTag {
         return this.alignStatus.recurringAlert();
     }
 
+    public Long getLastAccessTime() {
+        return LastAccessTime;
+    }
+
+    public void setLastAccessTime(Long lastAccessTime) {
+        LastAccessTime = lastAccessTime;
+    }
 }

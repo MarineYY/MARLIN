@@ -20,7 +20,6 @@
             <data key="type">Process</data>
             <data key="process_name">.*sshd|pw.*</data>
             <data key="is_seed_node">false</data>
-            <data key="Alert_threshold">1.4</data>
         </node>
         <node id="n1">
             <data key="type">File</data>

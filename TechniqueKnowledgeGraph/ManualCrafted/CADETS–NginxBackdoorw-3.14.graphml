@@ -101,7 +101,7 @@
         <edge source="n1" target="n2">
             <data key="event_type">FILE_WRITE</data>
             <data key="sequence_num">1</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n3" target="n1">
             <data key="event_type">FILE_READ</data>
@@ -123,12 +123,7 @@
             <data key="sequence_num">5</data>
             <data key="is_seed_edge">true</data>
         </edge>
-        <edge source="n1" target="n7">
-            <data key="event_type">FILE_WRITE</data>
-            <data key="sequence_num">6</data>
-            <data key="is_seed_edge">true</data>
-        </edge>
-        <edge source="n7" target="n8">
+        <edge source="n1" target="n8">
             <data key="event_type">PROCESS_LOAD</data>
             <data key="sequence_num">7</data>
             <data key="is_seed_edge">false</data>

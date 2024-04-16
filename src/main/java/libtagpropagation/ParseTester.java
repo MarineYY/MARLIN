@@ -10,7 +10,7 @@ public class ParseTester {
 //        durationTime("1648196412041127565", "1648405875429715088");
 //        1648196053351249642 (后)  1648471346229724669 （前）     ubantu anomly
 //        durationTime("1648196053351249642", "1648471346229724669");
-        System.out.println(12200000 / 220);
+        System.out.println(0.5 * 3600000000000L);
 
     }
 

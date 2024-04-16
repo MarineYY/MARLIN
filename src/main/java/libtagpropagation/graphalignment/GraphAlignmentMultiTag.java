@@ -12,11 +12,12 @@ import static libtagpropagation.graphalignment.GraphAlignmentProcessFunction.rem
 public class GraphAlignmentMultiTag {
     private Map<String, GraphAlignmentTag> tagMap;
 
-    public GraphAlignmentMultiTag(Set<Tuple2<SeedNode, TechniqueKnowledgeGraph>> tkgList, UUID sourceUUID) {
+    public GraphAlignmentMultiTag(Set<Tuple2<SeedNode, TechniqueKnowledgeGraph>> tkgList, UUID sourceUUID, Long eventTime) {
         tagMap = new HashMap<>();
 
         for (Tuple2<SeedNode, TechniqueKnowledgeGraph> entry : tkgList){
             GraphAlignmentTag tag = new GraphAlignmentTag(entry.f0, entry.f1, sourceUUID);
+            tag.setLastAccessTime(eventTime);
             this.tagMap.put(entry.f1.techniqueName, tag);
         }
     }

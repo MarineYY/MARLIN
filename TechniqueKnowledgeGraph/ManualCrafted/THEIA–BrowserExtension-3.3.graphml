@@ -18,14 +18,13 @@
     <graph id="THEIA–BrowserExtension-3.3" edgedefault="directed">
         <node id="n0">
             <data key="type">Network</data>
-            <data key="url_ip">141.43.176.203</data>
+            <data key="url_ip">141.43.176.204</data>
             <data key="is_seed_node">false</data>
-            <data key="Alert_threshold">1.3</data>
         </node>
         <node id="n1">
             <data key="type">Process</data>
             <data key="process_name">.*firefox</data>
-            <data key="is_seed_node">false</data>
+            <data key="is_seed_node">true</data>
         </node>
         <node id="n2">
             <data key="type">Network</data>
@@ -61,26 +60,21 @@
         <edge source="n1" target="n2">
             <data key="event_type">NET_CONNECT</data>
             <data key="sequence_num">1</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n1" target="n3">
             <data key="event_type">FILE_WRITE</data>
             <data key="sequence_num">2</data>
             <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n1" target="n4">
-            <data key="event_type">FILE_WRITE</data>
-            <data key="sequence_num">3</data>
-            <data key="is_seed_edge">true</data>
-        </edge>
-        <edge source="n4" target="n5">
+        <edge source="n1" target="n5">
             <data key="event_type">PROCESS_LOAD</data>
-            <data key="sequence_num">4</data>
+            <data key="sequence_num">3</data>
             <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n5" target="n6">
             <data key="event_type">NET_CONNECT</data>
-            <data key="sequence_num">5</data>
+            <data key="sequence_num">4</data>
             <data key="is_seed_edge">false</data>
         </edge>
     </graph>

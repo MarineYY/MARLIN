@@ -7,13 +7,13 @@ import org.apache.flink.api.common.state.*;
 import org.apache.flink.api.common.time.Time;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
+import org.apache.kafka.common.protocol.types.Field;
 import provenancegraph.*;
 
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class GraphAlignmentProcessFunction
@@ -31,15 +31,18 @@ public class GraphAlignmentProcessFunction
     public static int multiTagCount = 0;
     public static int tagCount = 0;
     public static int removeTagCount = 0;
+    private Long currentTimeStamp;
+    private String outPath;
 
     @Override
     public void open(Configuration parameter) {
-        StateTtlConfig ttlConfig = StateTtlConfig
-                .newBuilder(Time.seconds(1))
-                .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)
-                .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)
-                .cleanupIncrementally(10, false)
-                .build();
+//        StateTtlConfig ttlConfig = StateTtlConfig
+//                .newBuilder(Time.seconds(1))
+//                .setTtlTimeCharacteristic(StateTtlConfig.TtlTimeCharacteristic.ProcessingTime) // 处理时间， 事件时间
+//                .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite) //
+//                .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)
+//                .cleanupFullSnapshot()
+//                .build();
 
         ValueStateDescriptor<Boolean> isInitializedDescriptor =
                 new ValueStateDescriptor<>("isInitialized", Boolean.class, false);
@@ -55,16 +58,15 @@ public class GraphAlignmentProcessFunction
 
         MapStateDescriptor<UUID, GraphAlignmentMultiTag> tagCacheStateDescriptor =
                 new MapStateDescriptor<>("tagsCacheMap", UUID.class, GraphAlignmentMultiTag.class);
+//        tagCacheStateDescriptor.enableTimeToLive(ttlConfig);
         tagsCacheMap = getRuntimeContext().getMapState(tagCacheStateDescriptor);
-        tagCacheStateDescriptor.enableTimeToLive(ttlConfig);
     }
 
-    // ToDo：考虑边的匹配状态
-    // TODO 生产事件去匹配tkg
+
     @Override
     public void processElement(AssociatedEvent associatedEvent,
                                KeyedProcessFunction<UUID, AssociatedEvent, String>.Context context,
-                               Collector<String> collector) throws IOException {
+                               Collector<String> collector) throws Exception {
         processEventCount++;
         tagCount = propagateTagCount + initTagCount;
         if (processEventCount % 100000 == 0){
@@ -75,7 +77,59 @@ public class GraphAlignmentProcessFunction
             );
         }
 
+        /*
+        traverse all tags
+         */
+//        try {
+//            Iterator<Map.Entry<UUID, GraphAlignmentMultiTag>> iteratorMultiTags = tagsCacheMap.entries().iterator();
+//            while(iteratorMultiTags.hasNext()){
+//                Map.Entry<UUID, GraphAlignmentMultiTag> entry = iteratorMultiTags.next();
+//                Iterator<Map.Entry<String, GraphAlignmentTag>> iteratorTags = entry.getValue().getTagMap().entrySet().iterator();
+//                while(iteratorTags.hasNext()){
+//                    Map.Entry<String, GraphAlignmentTag> tagEntry = iteratorTags.next();
+//                    if (tagEntry.getValue().getLastAccessTime() + (4.0 * 3600000000000L) < associatedEvent.timeStamp) {
+//                        iteratorTags.remove();
+//                    }
+//                }
+//            }
+//        }catch (NullPointerException e)
+//        {
+//            e.printStackTrace();
+//        }
+
+        /*
+        implement statistics of active tags
+         */
+//        if (!Objects.isNull(currentTimeStamp))
+//        {
+//            if (associatedEvent.timeStamp >= currentTimeStamp + 60000000000L){
+//
+//                currentTimeStamp = associatedEvent.timeStamp;
+//
+//                StringBuilder activeTagStatistic = new StringBuilder("activeTagStatistic:\n");
+//                Integer counter = 0;
+//                for (Map.Entry<UUID, GraphAlignmentMultiTag> entry : tagsCacheMap.entries()){
+//                    counter += entry.getValue().getTagMap().size();
+//                }
+//                activeTagStatistic.append(counter).append("\n");
+//
+//                try {
+//                    if (Objects.isNull(outPath)) {
+//                        outPath = "D:\\Program File\\git_repository\\dataFiles\\outData\\" + System.currentTimeMillis() + ".txt";
+//                    }
+//                    File file = new File(outPath);
+//                    BufferedWriter outWriter = new BufferedWriter(new FileWriter(file, true));
+//                    outWriter.write(activeTagStatistic.toString());
+//                    outWriter.flush();
+//                    outWriter.close();
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+
         if (!this.isInitialized.value()){
+            currentTimeStamp = associatedEvent.timeStamp;
             init(knowledgeGraphPath);
             this.isInitialized.update(true);
             System.out.println("\nOnline Alignment start ......\n");
@@ -125,7 +179,7 @@ public class GraphAlignmentProcessFunction
 
         if (initTkgList.isEmpty()) return null;
         else {
-            GraphAlignmentMultiTag multiTag = new GraphAlignmentMultiTag(initTkgList, associatedEvent.sourceNode.getNodeUUID());
+            GraphAlignmentMultiTag multiTag = new GraphAlignmentMultiTag(initTkgList, associatedEvent.sourceNode.getNodeUUID(), associatedEvent.timeStamp);
             if (this.tagsCacheMap.contains(associatedEvent.sourceNode.getNodeUUID())) {
                 this.tagsCacheMap.get(associatedEvent.sourceNode.getNodeUUID()).mergeMultiTag(multiTag);
             }

@@ -29,9 +29,24 @@ public class Main {
         DataStream<AssociatedEvent> event_stream;
 
         if (Objects.equals(args[0], "online")){
-//            String kafkaBroker = "192.168.10.102:9092";
-            String kafkaBroker = "10.214.242.214:9092";
-            String kafkaTopic = "topic-HipsToMrd";
+            String kafkaBroker = "192.168.10.110:9092";
+//            String kafkaTopic = "topic-CADETS-0";
+//            String kafkaTopic = "topic-CADETS-1";
+//            String kafkaTopic = "topic-CADETS-2";
+//            String kafkaTopic = "topic-FD-2";
+//            String kafkaTopic = "topic-FD-3";
+//            String kafkaTopic = "topic-THEIA-1r";
+//            String kafkaTopic = "topic-THEIA-3";
+//            String kafkaTopic = "topic-THEIA-5m"   ;
+//            String kafkaTopic = "topic-THEIA-6r";
+            String kafkaTopic = "topic-win10-malicious";
+//            String kafkaTopic = "topic-win10";
+//            String kafkaTopic = "topic-winserver-malicious";
+//            String kafkaTopic = "topic-winserver";
+//            String kafkaTopic = "topic-ubantu-malicious";
+//            String kafkaTopic = "topic-ubantu";
+//            String kafkaTopic = "topic-test";
+
             String kafkaGroupId = "mergeAlert";
 
             // TODO: replace deserializer with protobuf PDM deserializer
@@ -40,7 +55,7 @@ public class Main {
                     .setBootstrapServers(kafkaBroker)
                     .setTopics(kafkaTopic)
                     .setGroupId(kafkaGroupId)
-                    .setStartingOffsets(OffsetsInitializer.latest())
+                    .setStartingOffsets(OffsetsInitializer.earliest())
                     .setValueOnlyDeserializer(new KafkaPDMDeserializer())
                     .build();
 

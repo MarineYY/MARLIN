@@ -17,7 +17,7 @@ public class GraphAlignmentStatus {
     public String techniqueName;
     public Float alignmentScore = 0.0F;
     public boolean ALERT_FLAG;
-    public Float  ALIGNMENT_THRESHOLDS;
+    public Float  ALIGNMENT_THRESHOLDS = 1.2F;
 
     private int nodeCount;
     private int edgeCount;
@@ -37,7 +37,7 @@ public class GraphAlignmentStatus {
 
         this.techniqueName = tkg.techniqueName;
         this.ALERT_FLAG = false;
-        this.ALIGNMENT_THRESHOLDS = tkg.Alert_Threshold;
+//        this.ALIGNMENT_THRESHOLDS = tkg.Alert_Threshold;
     }
 
     public GraphAlignmentStatus tryUpdateStatus(NodeAlignmentStatus sourceNodeAlignmentStatus, NodeAlignmentStatus sinkNodeAlignmentStatus, Integer edgeIndex, ArrayList<AssociatedEvent> cachedPath) {
