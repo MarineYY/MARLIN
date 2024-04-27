@@ -32,10 +32,11 @@ public class SeedEdge {
     }
 
     public boolean isNextEdgeAligned(AssociatedEvent e) {
-        if (Pattern.matches(this.event_type , e.getRelationship())) {
-            return sinkNode.isNodeAligned(e.sinkNode, e.sinkNodeProperties);
-        }
-        return false;
+//        if (Pattern.matches(this.event_type , e.getRelationship())) {
+//            return sinkNode.isNodeAligned(e.sinkNode, e.sinkNodeProperties);
+//        }
+//        return false;
+        return sinkNode.isNodeAligned(e.sinkNode, e.sinkNodeProperties);
     }
 
     public int getId(){

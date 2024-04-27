@@ -21,7 +21,7 @@ public class GraphAlignmentProcessFunction
 
     private static final String knowledgeGraphPath = "TechniqueKnowledgeGraph/ManualCrafted";
     private transient ListState<TechniqueKnowledgeGraph> tkgList;
-    private transient ValueState<TechniqueKnowledgeGraphSeedSearching> seedSearching; // ToDo：和直接存变量有什么区别？
+    private transient ValueState<TechniqueKnowledgeGraphSeedSearching> seedSearching;
 
     private transient ValueState<Boolean> isInitialized;
     private transient MapState<UUID, GraphAlignmentMultiTag> tagsCacheMap;
@@ -36,14 +36,6 @@ public class GraphAlignmentProcessFunction
 
     @Override
     public void open(Configuration parameter) {
-//        StateTtlConfig ttlConfig = StateTtlConfig
-//                .newBuilder(Time.seconds(1))
-//                .setTtlTimeCharacteristic(StateTtlConfig.TtlTimeCharacteristic.ProcessingTime) // 处理时间， 事件时间
-//                .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite) //
-//                .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)
-//                .cleanupFullSnapshot()
-//                .build();
-
         ValueStateDescriptor<Boolean> isInitializedDescriptor =
                 new ValueStateDescriptor<>("isInitialized", Boolean.class, false);
         this.isInitialized = getRuntimeContext().getState(isInitializedDescriptor);
@@ -58,7 +50,6 @@ public class GraphAlignmentProcessFunction
 
         MapStateDescriptor<UUID, GraphAlignmentMultiTag> tagCacheStateDescriptor =
                 new MapStateDescriptor<>("tagsCacheMap", UUID.class, GraphAlignmentMultiTag.class);
-//        tagCacheStateDescriptor.enableTimeToLive(ttlConfig);
         tagsCacheMap = getRuntimeContext().getMapState(tagCacheStateDescriptor);
     }
 
@@ -87,7 +78,7 @@ public class GraphAlignmentProcessFunction
 //                Iterator<Map.Entry<String, GraphAlignmentTag>> iteratorTags = entry.getValue().getTagMap().entrySet().iterator();
 //                while(iteratorTags.hasNext()){
 //                    Map.Entry<String, GraphAlignmentTag> tagEntry = iteratorTags.next();
-//                    if (tagEntry.getValue().getLastAccessTime() + (4.0 * 3600000000000L) < associatedEvent.timeStamp) {
+//                    if (tagEntry.getValue().getLastAccessTime() + (1 * 3600000000000L) < associatedEvent.timeStamp) {
 //                        iteratorTags.remove();
 //                    }
 //                }
@@ -173,7 +164,14 @@ public class GraphAlignmentProcessFunction
     private GraphAlignmentMultiTag tryInitGraphAlignmentTag(AssociatedEvent associatedEvent) throws Exception {
         Set<Tuple2<SeedNode, TechniqueKnowledgeGraph>> initTkgList = new HashSet<>();
 
-        initTkgList.addAll(this.seedSearching.value().search(associatedEvent.sourceNode));
+        try {
+            BasicNode sourceNode = associatedEvent.sourceNode;
+            this.seedSearching.value().search(sourceNode);
+            initTkgList.addAll(this.seedSearching.value().search(associatedEvent.sourceNode));
+        }catch (NullPointerException e){
+            System.out.println(associatedEvent.toString());
+            e.printStackTrace();
+        }
         // 记录到source上传播到sink上面
         initTkgList.addAll(this.seedSearching.value().search(associatedEvent));
 

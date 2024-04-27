@@ -37,7 +37,6 @@ public class GraphAlignmentStatus {
 
         this.techniqueName = tkg.techniqueName;
         this.ALERT_FLAG = false;
-//        this.ALIGNMENT_THRESHOLDS = tkg.Alert_Threshold;
     }
 
     public GraphAlignmentStatus tryUpdateStatus(NodeAlignmentStatus sourceNodeAlignmentStatus, NodeAlignmentStatus sinkNodeAlignmentStatus, Integer edgeIndex, ArrayList<AssociatedEvent> cachedPath) {

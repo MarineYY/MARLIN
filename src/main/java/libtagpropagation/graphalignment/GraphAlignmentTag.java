@@ -30,7 +30,7 @@ public class GraphAlignmentTag {
     private GraphAlignmentStatus alignStatus; // 用于记录匹配状态，二次索引
 
     private boolean isOnTKG;// identify if the tag is on tkg
-    private static final int ATTENUATION_THRESHOLD = 6;
+    private static final int ATTENUATION_THRESHOLD = 5;
     private Long LastAccessTime;
 
     public GraphAlignmentTag(SeedNode seedNode, TechniqueKnowledgeGraph tkg, UUID tagUUID) {
@@ -56,10 +56,10 @@ public class GraphAlignmentTag {
 
         this.alignStatus.mergeAlignmentStatus(anotherAlignmentTag.alignStatus.getEdgeAlignmentStatusList(),anotherAlignmentTag.alignStatus.getNodeAlignmentStatusList());
 
-        if (this.tkg.techniqueName.equals("FiveDirections-PhishingE-mail-3.10")) {
-            System.out.println("merge:" + this.lastAlignedNodeIndex + " " + anotherAlignmentTag.lastAlignedNodeIndex);
-            this.alignStatus.print();
-        }
+//        if (this.tkg.techniqueName.equals("FiveDirections-PhishingE-mail-3.10")) {
+//            System.out.println("merge:" + this.lastAlignedNodeIndex + " " + anotherAlignmentTag.lastAlignedNodeIndex);
+//            this.alignStatus.print();
+//        }
 
         if (this.alignStatus.shouldTriggerAlert()){
             if(!this.alignStatus.recurringAlert())
@@ -99,6 +99,7 @@ public class GraphAlignmentTag {
     }
 
     public GraphAlignmentTag propagate(AssociatedEvent event){
+        if (this.cachedPath.size() + 1 > ATTENUATION_THRESHOLD) return null;
         GraphAlignmentTag newTag = new GraphAlignmentTag(this);
         newTag.cachedPath = new ArrayList<>(this.cachedPath);
         newTag.cachedPath.add(event);
@@ -127,7 +128,7 @@ public class GraphAlignmentTag {
                     System.out.println(this.alignStatus.getAlignmentResult());
                 return null;
             }
-//            if (this.tkg.techniqueName.equals("THEIA–BrowserExtension-3.11") && this.alignStatus.alignmentScore > 0.5F) {
+//            if (this.tkg.techniqueName.equals("CADETS–NginxBackdoorw-3.14") && this.alignStatus.alignmentScore > 0.2F) {
 //                if (graphAlignmentStatus != null) {
 //                    System.out.println("updateStatus:");
 //                    this.alignStatus.print();
