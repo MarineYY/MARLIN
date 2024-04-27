@@ -18,17 +18,17 @@
     <graph id="T1053_ScheduleTask" edgedefault="directed">
         <node id="n0">
             <data key="type">Process</data>
-            <data key="process_name">.*sshd|pw.*</data>
-            <data key="is_seed_node">false</data>
+            <data key="process_name">.*(bash|sh|powershell|cmd).*</data>
+            <data key="is_seed_node">true</data>
         </node>
         <node id="n1">
             <data key="type">File</data>
-            <data key="file_path">.*(/var/log/|/etc/group).*</data>
+            <data key="file_path">.*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n2">
             <data key="type">Process</data>
-            <data key="process_name">schtask|.*cron.*</data>
+            <data key="process_name">.*(schtask|cron|systemd).*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n3">
@@ -41,7 +41,7 @@
         <edge source="n0" target="n1">
             <data key="event_type">FILE_WRITE</data>
             <data key="sequence_num">0</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n1" target="n2">
             <data key="event_type">FILE_READ</data>
@@ -49,7 +49,7 @@
             <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n2" target="n3">
-            <data key="event_type">PROCESS_FORK</data>
+            <data key="event_type">PROCESS_EXEC</data>
             <data key="sequence_num">2</data>
             <data key="is_seed_edge">false</data>
         </edge>

@@ -18,33 +18,32 @@
     <graph id="T1124+T1082_Live-off-the-Land" edgedefault="directed">
         <node id="n0">
             <data key="type">Process</data>
-            <data key="process_name">bash|sh|powershell|cmd</data>
-            <data key="is_seed_node">false</data>
-            <data key="Alert_threshold">1.2</data>
+            <data key="process_name">.*(bash|sh|powershell|cmd).*</data>
+            <data key="is_seed_node">true</data>
         </node>
         <node id="n1">
             <data key="type">Process</data>
-            <data key="process_name">systeminfo|ping</data>
+            <data key="process_name">.*(uname|whoami|hostname).*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n2">
             <data key="type">Process</data>
-            <data key="process_name">net|ROUTE</data>
+            <data key="process_name">.*(ping|netstat|arp|route|ssh).*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n3">
             <data key="type">Process</data>
-            <data key="process_name">whoami</data>
+            <data key="process_name">.*(tar|cat|rm|ls|vi|vim|touch).*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n4">
             <data key="type">Process</data>
-            <data key="process_name">ipconfig</data>
+            <data key="process_name">.*(chown|passwd|sudo).*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n5">
             <data key="type">Process</data>
-            <data key="process_name">arp|ARP</data>
+            <data key="process_name">.*(ps|kill|top).*</data>
             <data key="is_seed_node">false</data>
         </node>
 
@@ -52,27 +51,27 @@
         <edge source="n0" target="n1">
             <data key="event_type">PROCESS_EXEC</data>
             <data key="sequence_num">0</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n0" target="n2">
             <data key="event_type">PROCESS_EXEC</data>
             <data key="sequence_num">1</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n0" target="n3">
             <data key="event_type">PROCESS_EXEC</data>
             <data key="sequence_num">2</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n0" target="n4">
             <data key="event_type">PROCESS_EXEC</data>
             <data key="sequence_num">3</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n0" target="n5">
             <data key="event_type">PROCESS_EXEC</data>
             <data key="sequence_num">4</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
     </graph>
 </graphml>

@@ -20,7 +20,6 @@
             <data key="type">Network</data>
             <data key="url_ip">208.75.117.5</data>
             <data key="is_seed_node">false</data>
-            <data key="Alert_threshold">1.5</data>
         </node>
         <node id="n1">
             <data key="type">Process</data>

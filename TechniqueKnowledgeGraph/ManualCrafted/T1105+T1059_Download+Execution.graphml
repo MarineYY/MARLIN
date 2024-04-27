@@ -20,11 +20,10 @@
             <data key="type">Network</data>
             <data key="url_ip">.*</data>
             <data key="is_seed_node">false</data>
-            <data key="Alert_threshold">1.3</data>
         </node>
         <node id="n1">
             <data key="type">Process</data>
-            <data key="process_name">certutil|curl|.*nginx.*|.*firefox.*</data>
+            <data key="process_name">.*(nginx|firefox).*</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n2">
@@ -34,12 +33,12 @@
         </node>
         <node id="n3">
             <data key="type">Process</data>
-            <data key="process_name">.*</data>
+            <data key="process_name">^(?!.*firefox.*).*$</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n4">
             <data key="type">File</data>
-            <data key="file_path">.*</data>
+            <data key="file_path">.*\.(sh|py|bat|yaml|ps1)</data>
             <data key="is_seed_node">false</data>
         </node>
         <node id="n5">
@@ -68,13 +67,13 @@
             <data key="sequence_num">2</data>
             <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n3" target="n4">
-            <data key="event_type">FILE_WRITE</data>
+        <edge source="n3" target="n5">
+            <data key="event_type">NET_CONNECT</data>
             <data key="sequence_num">3</data>
             <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n3" target="n5">
-            <data key="event_type">NET_CONNECT</data>
+        <edge source="n3" target="n4">
+            <data key="event_type">FILE_WRITE</data>
             <data key="sequence_num">4</data>
             <data key="is_seed_edge">false</data>
         </edge>

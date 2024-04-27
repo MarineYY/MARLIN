@@ -20,7 +20,6 @@
             <data key="type">Network</data>
             <data key="url_ip">25.159.96.207</data>
             <data key="is_seed_node">false</data>
-            <data key="Alert_threshold">1.6</data>
         </node>
         <node id="n1">
             <data key="type">Process</data>
@@ -34,62 +33,32 @@
         </node>
         <node id="n3">
             <data key="type">File</data>
-            <data key="file_path">/etc/passwd</data>
-            <data key="is_seed_node">false</data>
-        </node>
-        <node id="n4">
-            <data key="type">Network</data>
-            <data key="url_ip">76.56.184.25</data>
-            <data key="is_seed_node">false</data>
-        </node>
-        <node id="n5">
-            <data key="type">Network</data>
-            <data key="url_ip">155.162.39.48</data>
-            <data key="is_seed_node">false</data>
-        </node>
-        <node id="n6">
-            <data key="type">File</data>
-            <data key="file_path">/etc/group</data>
-            <data key="is_seed_node">false</data>
-        </node>
-        <node id="n7">
-            <data key="type">File</data>
             <data key="file_path">.*pEja72mA.*</data>
             <data key="is_seed_node">false</data>
         </node>
-        <node id="n8">
+        <node id="n4">
             <data key="type">Process</data>
             <data key="process_name">.*pEja72mA.*</data>
             <data key="is_seed_node">false</data>
         </node>
-        <node id="n9">
-            <data key="type">Network</data>
-            <data key="url_ip">53.158.101.118</data>
-            <data key="is_seed_node">false</data>
-        </node>
-        <node id="n10">
-            <data key="type">File</data>
-            <data key="file_path">.*memhelp.so.*</data>
-            <data key="is_seed_node">false</data>
-        </node>
-        <node id="n11">
+        <node id="n5">
             <data key="type">File</data>
             <data key="file_path">.*eraseme.*</data>
             <data key="is_seed_node">false</data>
         </node>
-        <node id="n12">
+        <node id="n6">
             <data key="type">File</data>
             <data key="file_path">.*done.so.*</data>
             <data key="is_seed_node">false</data>
         </node>
-        <node id="n13">
+        <node id="n7">
             <data key="type">Process</data>
             <data key="process_name">.*sshd.*</data>
             <data key="is_seed_node">false</data>
         </node>
-        <node id="n14">
+        <node id="n8">
             <data key="type">Network</data>
-            <data key="url_ip">198.115.236.119</data>
+            <data key="url_ip">.*</data>
             <data key="is_seed_node">false</data>
         </node>
 
@@ -103,59 +72,34 @@
             <data key="sequence_num">1</data>
             <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n3" target="n1">
+        <edge source="n2" target="n4">
             <data key="event_type">FILE_READ</data>
             <data key="sequence_num">2</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
         <edge source="n1" target="n4">
-            <data key="event_type">NET_CONNECT</data>
+            <data key="event_type">PROCESS_LOAD</data>
             <data key="sequence_num">3</data>
             <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n1" target="n5">
-            <data key="event_type">NET_CONNECT</data>
+        <edge source="n4" target="n5">
+            <data key="event_type">FILE_WRITE</data>
             <data key="sequence_num">4</data>
             <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n6" target="n1">
-            <data key="event_type">FILE_READ</data>
+        <edge source="n4" target="n6">
+            <data key="event_type">FILE_WRITE</data>
             <data key="sequence_num">5</data>
-            <data key="is_seed_edge">true</data>
+            <data key="is_seed_edge">false</data>
         </edge>
-        <edge source="n1" target="n8">
-            <data key="event_type">PROCESS_LOAD</data>
+        <edge source="n4" target="n7">
+            <data key="event_type">PROCESS_FORK</data>
+            <data key="sequence_num">6</data>
+            <data key="is_seed_edge">false</data>
+        </edge>
+        <edge source="n4" target="n8">
+            <data key="event_type">CONNECT</data>
             <data key="sequence_num">7</data>
-            <data key="is_seed_edge">false</data>
-        </edge>
-        <edge source="n2" target="n8">
-            <data key="event_type">FILE_READ</data>
-            <data key="sequence_num">8</data>
-            <data key="is_seed_edge">false</data>
-        </edge>
-        <edge source="n3" target="n8">
-            <data key="event_type">FILE_READ</data>
-            <data key="sequence_num">9</data>
-            <data key="is_seed_edge">true</data>
-        </edge>
-        <edge source="n8" target="n9">
-            <data key="event_type">NET_CONNECT</data>
-            <data key="sequence_num">10</data>
-            <data key="is_seed_edge">false</data>
-        </edge>
-        <edge source="n8" target="n10">
-            <data key="event_type">FILE_WRITE</data>
-            <data key="sequence_num">11</data>
-            <data key="is_seed_edge">false</data>
-        </edge>
-        <edge source="n8" target="n11">
-            <data key="event_type">FILE_WRITE</data>
-            <data key="sequence_num">12</data>
-            <data key="is_seed_edge">false</data>
-        </edge>
-        <edge source="n8" target="n12">
-            <data key="event_type">FILE_WRITE</data>
-            <data key="sequence_num">13</data>
             <data key="is_seed_edge">false</data>
         </edge>
     </graph>
