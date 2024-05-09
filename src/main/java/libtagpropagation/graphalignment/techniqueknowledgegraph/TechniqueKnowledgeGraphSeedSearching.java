@@ -57,11 +57,11 @@ public class TechniqueKnowledgeGraphSeedSearching {
 
     public List<Tuple2<SeedNode, TechniqueKnowledgeGraph>> search(BasicNode candidateNode) {
         // 缓存查询过的节点
-        if (this.searchedNodeCache.containsKey(candidateNode.getNodeUUID())) {
-            return this.searchedNodeCache.get(candidateNode.getNodeUUID());
-        }
-
-        else {
+//        if (this.searchedNodeCache.containsKey(candidateNode.getNodeUUID())) {
+//            return this.searchedNodeCache.get(candidateNode.getNodeUUID());
+//        }
+//
+//        else {
             ArrayList<Tuple2<SeedNode, TechniqueKnowledgeGraph>> techniqueKnowledgeGraphs = new ArrayList<>();
             for (Map.Entry entry : this.seedNodeSearchMap.entrySet()) {
                 SeedNode seedNode = (SeedNode) entry.getKey();
@@ -72,15 +72,14 @@ public class TechniqueKnowledgeGraphSeedSearching {
 
             this.searchedNodeCache.put(candidateNode.getNodeUUID(), techniqueKnowledgeGraphs);
             return techniqueKnowledgeGraphs;
-        }
+//        }
     }
 
     public List<Tuple2<SeedNode, TechniqueKnowledgeGraph>> search(AssociatedEvent candidateEdge) {
-        // ToDo：加上缓存
-        if (this.searchedEdgeCache.containsKey(candidateEdge.getEventUUID())) {
-            return this.searchedEdgeCache.get(candidateEdge.getEventUUID());
-        }
-        else {
+//        if (this.searchedEdgeCache.containsKey(candidateEdge.getEventUUID())) {
+//            return this.searchedEdgeCache.get(candidateEdge.getEventUUID());
+//        }
+//        else {
             ArrayList<Tuple2<SeedNode, TechniqueKnowledgeGraph>> techniqueKnowledgeGraphs = new ArrayList<>();
             for (Map.Entry entry : seedEdgeSearchMap.entrySet()) {
                 SeedEdge seedEdge = (SeedEdge) entry.getKey();
@@ -91,7 +90,7 @@ public class TechniqueKnowledgeGraphSeedSearching {
             }
             this.searchedEdgeCache.put(candidateEdge.getEventUUID(), techniqueKnowledgeGraphs);
             return techniqueKnowledgeGraphs;
-        }
+//        }
     }
 
 }

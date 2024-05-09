@@ -52,7 +52,6 @@ public class GraphAlignmentMultiTag {
         while (iterator.hasNext()) {
             Map.Entry<String, GraphAlignmentTag> entry = iterator.next();
             if (!(entry.getValue()).recurringAlert()) {
-
                 String techniqueName = entry.getKey();
                 GraphAlignmentTag newTag = entry.getValue().propagate(associatedEvent);
                 if (newTag != null) {
@@ -67,7 +66,6 @@ public class GraphAlignmentMultiTag {
                 removeTagCount ++;
             }
         }
-
         return newMultiTag;
     }
 

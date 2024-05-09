@@ -30,7 +30,7 @@ public class GraphAlignmentTag {
     private GraphAlignmentStatus alignStatus; // 用于记录匹配状态，二次索引
 
     private boolean isOnTKG;// identify if the tag is on tkg
-    private static final int ATTENUATION_THRESHOLD = 5;
+    private static final int ATTENUATION_THRESHOLD = 6;
     private Long LastAccessTime;
 
     public GraphAlignmentTag(SeedNode seedNode, TechniqueKnowledgeGraph tkg, UUID tagUUID) {
@@ -134,7 +134,7 @@ public class GraphAlignmentTag {
 //                    this.alignStatus.print();
 //                }
 //            }
-            // ToDo：cached path也需要更新到alignStatus
+
             newTag.cachedPath = new ArrayList<>();
             newTag.cachedPathLength = 0;
         }

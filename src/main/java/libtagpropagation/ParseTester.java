@@ -1,7 +1,8 @@
 package libtagpropagation;
-import java.math.BigInteger;
+import utils.KafkaConfig;
 
-import static libtagpropagation.anomalypath.TagBasedAnomalyPathMiningOnFlink.calculateRegularScore;
+import java.math.BigInteger;
+import java.util.ArrayList;
 
 public class ParseTester {
     public static void main(String[] args) throws Exception{
@@ -10,8 +11,13 @@ public class ParseTester {
 //        durationTime("1648196412041127565", "1648405875429715088");
 //        1648196053351249642 (后)  1648471346229724669 （前）     ubantu anomly
 //        durationTime("1648196053351249642", "1648471346229724669");
-        System.out.println(0.5 * 3600000000000L);
+//        System.out.println(0.5 * 3600000000000L);
 
+        KafkaConfig kafkaConfig = new KafkaConfig();
+        ArrayList<String> kafkaTopicList = kafkaConfig.getTopicList(1,2);
+        for (String topic : kafkaTopicList) {
+            System.out.println(topic);
+        }
     }
 
     public static void durationTime(String startTime, String endTime){
