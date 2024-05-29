@@ -169,7 +169,6 @@ public class GraphAlignmentProcessFunction
             } else {
                 sinkMultiTag.mergeMultiTag(newTags);
                 newTags.mergeMultiTag(sinkMultiTag);
-                newTags = null;
             }
         }
         return tagsCacheMap.get(associatedEvent.sinkNode.getNodeUUID());
@@ -205,7 +204,7 @@ public class GraphAlignmentProcessFunction
         }
 
         // statistic active tags
-//        statisticOfActiveTags();
+        statisticOfActiveTags();
     }
 
     public void statisticOfActiveTags() throws Exception {
