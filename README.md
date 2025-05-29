@@ -30,7 +30,7 @@ kafka 3.5.1
 
 
 
-MARLIN is evaluated on open-source datasets from Darpa and ASAL. We open the log parsing source code to the public in another repository.  You can access it using the following links.[Link](https://github.com/MarineYY/DarpaASALLogParser.git)
+MARLIN is evaluated on open-source datasets from Darpa and ASAL.
 
 
 
