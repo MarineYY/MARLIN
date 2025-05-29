@@ -1,9 +1,7 @@
 # MARLIN
-
-
-
 Welcome to the MARLIN repository. 
 
+![System Architecture](asset/architecture.png)
 
 
 ## Prerequisites
