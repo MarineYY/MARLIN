@@ -10,7 +10,7 @@ We continuously develop and enhance MARLIN's capabilities to address evolving cy
 
 <p><a href="https://arxiv.org/abs/2403.12541"><img src="asset\paper_summary.png" alt="Paper thumbnail" align="right" width="160"/></a></p>
 
-- Introduces MARLIN, an advanced provenance detection system that conceptualizes attack detection as a streaming graph alignment problem, combining GraphAlignment-based and Anomaly path mining-based techniques.
+- Introduces MARLIN, an efficent provenance detection system that conceptualizes attack detection as a streaming graph alignment problem, combining Graph Alignment and Tag Propagation techniques.
 
 - Implements a tag propagation-based framework that efficiently processes streaming provenance graphs with minimal computational overhead, analyzing each event only once without needing to cache entire graphs.
 
