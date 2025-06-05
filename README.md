@@ -1,14 +1,14 @@
 ![License](https://img.shields.io/github/license/LexusWang/Aurora-demos)
 # MARLIN
-This repository hosts MARLIN, an advanced provenance detection system that combines GraphAlignment-based and Anomaly path mining-based techniques for real-time threat detection.
+This repository hosts MARLIN, an efficent provenance detection system that combines Graph Alignment and Tag Propagation techniques for real-time threat detection.
 
-MARLIN uses a tag propagation-based framework to perform efficient detection across complex network environments. By leveraging graph theory and machine learning algorithms, it can identify suspicious patterns and potential security breaches with high accuracy and minimal false positives.
+MARLIN uses a tag propagation-based framework to perform efficient detection across complex network environments. By using graph alignment, it can identify suspicious attack patterns and potential security breaches with high accuracy and minimal false positives.
 
 We continuously develop and enhance MARLIN's capabilities to address evolving cybersecurity challenges in enterprise environments.☺️
 
 ## 🎉 Introduction
 
-<p><a href="https://arxiv.org/abs/2403.12541"><img src="images/First_page.png" alt="Paper thumbnail" align="right" width="160"/></a></p>
+<p><a href="https://arxiv.org/abs/2403.12541"><img src="asset\paper_summary.png" alt="Paper thumbnail" align="right" width="160"/></a></p>
 
 - Introduces MARLIN, an advanced provenance detection system that conceptualizes attack detection as a streaming graph alignment problem, combining GraphAlignment-based and Anomaly path mining-based techniques.
 
@@ -22,7 +22,7 @@ Our paper: [MARLIN: Knowledge-Driven Analysis of Provenance Graphs for Efficient
 ## System Overview
 <p align="center">
 
-<img src="asset/architecture.png" alt="cli output" width="1000"/>
+<img src="asset/architecture.png" alt="cli output" width="800"/>
 
 </p>
 
